@@ -1,0 +1,60 @@
+
+@url=http://localhost:3000
+
+### Login primero para obtener token
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "admin"
+}
+
+###
+
+@token = {{login.response.body.token}}
+
+### Obtener todos los medicos
+GET {{url}}/medicos
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener un medico por suid
+GET {{url}}/medicos/1
+Authorization: Bearer {{token}}
+
+###
+
+### Crear medico
+POST {{url}}/medicos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellido": "Fernandez",
+  "especialidad": "Oftalmologia",
+  "matricula_profesional": "MP99887"
+}
+
+###
+
+### Actualizar medico
+PUT {{url}}/medicos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Ana Maria",
+  "apellido": "Martínez Lopez",
+  "especialidad": "Cardiologia Pediatrica",
+  "matricula_profesional": "MP12345"
+}
+
+###
+
+### Eliminar medico
+DELETE {{url}}/medicos/4
+Authorization: Bearer {{token}}
