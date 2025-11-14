@@ -1,0 +1,105 @@
+@url=http://localhost:3000
+
+### Login primero para obtener token
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.com",
+  "password": "admin"
+}
+
+###
+
+@token = {{login.response.body.token}}
+
+### Obtener todos los turnos
+GET {{url}}/turnos
+Authorization: Bearer {{token}}
+
+###
+
+###Obtener turnos filtrados por paciente
+GET {{url}}/turnos?paciente_id=1
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener turnos filtrados por medico
+GET {{url}}/turnos?medico_id=1
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener turnos filtrados por estado
+GET {{url}}/turnos?estado=pendiente
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener un turno por du id
+GET {{url}}/turnos/1
+Authorization: Bearer {{token}}
+
+###
+
+### Crear turno
+POST {{url}}/turnos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "paciente_id": 1,
+  "medico_id": 1,
+  "fecha": "2025-11-25",
+  "hora": "15:30:00",
+  "estado": "pendiente",
+  "observaciones": "Primera consulta"
+}
+
+###
+
+### Actualizar turno completo
+PUT {{url}}/turnos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "paciente_id": 1,
+  "medico_id": 2,
+  "fecha": "2025-11-26",
+  "hora": "10:00:00",
+  "estado": "pendiente",
+  "observaciones": "Turno reprogramado"
+}
+
+###
+
+### Actualizar solo estado y observaciones de un turno
+PATCH {{url}}/turnos/1/estado
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "estado": "atendido",
+  "observaciones": "Paciente atendido correctamente. Se solicitaron estudios adicionales."
+}
+
+###
+
+### Cancelar turno
+PATCH {{url}}/turnos/2/estado
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "estado": "cancelado",
+  "observaciones": "Paciente canceló por motivos personales"
+}
+
+###
+
+### Eliminar turno
+DELETE {{url}}/turnos/3
+Authorization: Bearer {{token}}
