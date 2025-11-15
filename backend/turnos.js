@@ -128,7 +128,7 @@ router.post(
   body("paciente_id").isInt({ min: 1 }),
   body("medico_id").isInt({ min: 1 }),
   body("fecha").isDate({ format: "YYYY-MM-DD" }),
-  body("hora").matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/),
+  body("hora").matches(/^([01]\d|2[0-3]):([0-5]\d)(:[0-5]\d)?$/),
   body("estado")
     .optional()
     .isIn(["pendiente", "atendido", "cancelado"])
@@ -223,7 +223,7 @@ router.put(
   body("fecha").optional().isDate({ format: "YYYY-MM-DD" }),
   body("hora")
     .optional()
-    .matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/),
+    .matches(/^([01]\d|2[0-3]):([0-5]\d)(:[0-5]\d)?$/),
   body("estado").optional().isIn(["pendiente", "atendido", "cancelado"]),
   body("observaciones").optional().isString(),
   verificarValidaciones,

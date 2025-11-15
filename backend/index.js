@@ -3,6 +3,7 @@ import cors from "cors";
 // para leer las variables .env
 import dotenv from "dotenv";
 import { conectarDB } from "./db.js";
+import authRouter from "./auth.js"; 
 import pacientesRouter from "./pacientes.js";
 import medicosRouter from "./medicos.js";
 import turnosRouter from "./turnos.js";
